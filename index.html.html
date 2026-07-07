@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsLens｜India orders Meta to remove ads</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --ink: #162033;
+      --muted: #667085;
+      --line: #e6e9ef;
+      --blue: #284c92;
+      --blue-2: #eef4ff;
+      --amber: #b7791f;
+      --amber-2: #fff7e6;
+      --purple: #5f3dc4;
+      --purple-2: #f2efff;
+      --red: #ad3838;
+      --red-2: #fff1f1;
+      --green: #22845a;
+      --green-2: #ecfdf4;
+      --shadow: 0 18px 45px rgba(21, 35, 61, 0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top left, #eaf0ff 0, transparent 32%), var(--bg);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(245, 247, 251, 0.82);
+      border-bottom: 1px solid rgba(230, 233, 239, .8);
+    }
+    .topbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #1d356a, #5578d6);
+      color: white;
+      box-shadow: 0 10px 25px rgba(40,76,146,.25);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+    .nav a:hover { background: #edf2fb; color: var(--blue); }
+
+    .hero {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 46px 28px 24px;
+    }
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      padding: 46px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(20,31,58,.96), rgba(42,77,147,.94)),
+        radial-gradient(circle at 92% 18%, rgba(255,255,255,.28), transparent 28%);
+      box-shadow: var(--shadow);
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      bottom: -90px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+    }
+    .kicker {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+      font-size: 13px;
+      color: rgba(255,255,255,.9);
+    }
+    .hero h1 {
+      max-width: 860px;
+      margin: 20px 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 66px);
+      line-height: 1.04;
+      letter-spacing: -1.6px;
+    }
+    .hero-subtitle {
+      max-width: 780px;
+      font-size: 18px;
+      color: rgba(255,255,255,.82);
+      margin: 0 0 24px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    .tag {
+      font-size: 13px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.88);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #193160; background: #ffffff; box-shadow: 0 10px 24px rgba(0,0,0,.16); }
+    .btn-ghost { color: white; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.24); }
+    .btn-small { padding: 8px 12px; font-size: 13px; }
+    .btn-blue { color: white; background: var(--blue); }
+    .btn-soft { color: var(--blue); background: var(--blue-2); }
+
+    .layout {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 18px 28px 70px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr) 300px;
+      gap: 22px;
+      align-items: start;
+    }
+    .sidebar, .rightbar {
+      position: sticky;
+      top: 86px;
+      align-self: start;
+    }
+    .panel {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(230,233,239,.95);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .side-panel { padding: 18px; }
+    .side-title {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .path { display: grid; gap: 8px; }
+    .path a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: #334155;
+      font-weight: 650;
+      font-size: 14px;
+    }
+    .path a:hover, .path a.active { background: var(--blue-2); color: var(--blue); }
+    .dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      background: #eef2f7;
+      color: var(--muted);
+      flex: 0 0 auto;
+    }
+    .path a.active .dot, .path a.done .dot { background: var(--blue); color: white; }
+
+    .content { display: grid; gap: 22px; }
+    section.card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -.4px;
+    }
+    h3 { margin: 24px 0 10px; font-size: 20px; }
+    .eyebrow {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+    .muted { color: var(--muted); }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 17px;
+      background: #fff;
+    }
+    .mini-card h4 { margin: 0 0 8px; font-size: 16px; }
+    .mini-card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .safety {
+      border: 1px solid #f2cccc;
+      background: var(--red-2);
+      color: #7b1f1f;
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .mode-switch {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .mode-btn, .tab-btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      padding: 9px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .mode-btn.active, .tab-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
+
+    .article-stack { display: grid; gap: 16px; }
+    .paragraph-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      background: linear-gradient(180deg, #ffffff, #fbfcff);
+    }
+    .p-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .article-text {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      line-height: 1.85;
+      color: #1c2638;
+      margin: 0;
+    }
+    .cn-summary {
+      margin: 14px 0 0;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-2);
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #27446f;
+    }
+    .explain {
+      margin-top: 14px;
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 14px;
+      color: #334155;
+    }
+    .show-explain .explain { display: block; }
+    .highlight-fact { background: var(--blue-2); color: #183f7c; border-radius: 6px; padding: 1px 4px; }
+    .highlight-action { background: var(--amber-2); color: #8a5512; border-radius: 6px; padding: 1px 4px; }
+    .highlight-response { background: var(--purple-2); color: #4d2aa6; border-radius: 6px; padding: 1px 4px; }
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .legend span { padding: 7px 10px; border-radius: 999px; }
+
+    .logic-map {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .logic-node {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 13px 15px;
+      background: #fff;
+    }
+    .logic-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--blue-2);
+      color: var(--blue);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+    .arrow { text-align: center; color: var(--muted); margin: -2px 0; }
+
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .expression-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+    .expression-card h3 { margin-top: 0; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .phonetic { color: var(--muted); font-size: 15px; font-weight: 600; }
+    .quote {
+      border-left: 4px solid var(--amber);
+      background: var(--amber-2);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 12px 0;
+      color: #74420b;
+    }
+    .codebox {
+      background: #111827;
+      color: #e5e7eb;
+      border-radius: 18px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 12px 0;
+    }
+
+    .practice-item {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    .options { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .option {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+    .option.correct { border-color: #9ad1b6; background: var(--green-2); color: var(--green); }
+    .option.wrong { border-color: #e7a8a8; background: var(--red-2); color: var(--red); }
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      resize: vertical;
+      outline: none;
+      background: #fbfcff;
+      color: var(--ink);
+    }
+    textarea:focus { border-color: #9eb6ee; box-shadow: 0 0 0 4px rgba(40,76,146,.08); }
+    .answer {
+      display: none;
+      margin-top: 12px;
+      background: var(--green-2);
+      color: #145b3d;
+      padding: 12px 14px;
+      border-radius: 14px;
+    }
+    .answer.show { display: block; }
+
+    .right-card { padding: 18px; margin-bottom: 16px; }
+    .progress-row { margin: 12px 0; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .bar { height: 8px; background: #eef2f7; border-radius: 99px; overflow: hidden; }
+    .fill { height: 100%; width: 20%; background: linear-gradient(90deg, var(--blue), #7c9ceb); border-radius: inherit; transition: width .3s ease; }
+    .word-list { display: grid; gap: 8px; }
+    .word-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 14px;
+      background: #f7f9fc;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .status {
+      font-weight: 800;
+      font-size: 11px;
+      color: var(--amber);
+      background: var(--amber-2);
+      padding: 3px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .ask-box input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 11px 12px;
+      outline: none;
+      background: #fbfcff;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .chip {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .complete {
+      text-align: center;
+      padding: 34px;
+      background: linear-gradient(135deg, #f8fbff, #eef4ff);
+      border: 1px solid #dbe7ff;
+      border-radius: 28px;
+    }
+    .complete h2 { font-size: 34px; }
+    .checklist {
+      max-width: 520px;
+      margin: 20px auto;
+      text-align: left;
+      display: grid;
+      gap: 9px;
+    }
+    .checklist div {
+      background: white;
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      border-radius: 16px;
+    }
+
+    .floating-complete {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 40;
+      background: var(--ink);
+      color: white;
+      border-radius: 999px;
+      box-shadow: 0 16px 32px rgba(0,0,0,.18);
+      padding: 12px 16px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 1160px) {
+      .layout { grid-template-columns: 190px minmax(0,1fr); }
+      .rightbar { display: none; }
+    }
+    @media (max-width: 860px) {
+      .topbar-inner { padding: 12px 16px; }
+      .nav { display: none; }
+      .hero { padding: 24px 16px 12px; }
+      .hero-card { padding: 28px 22px; border-radius: 24px; }
+      .layout { display: block; padding: 14px 16px 56px; }
+      .sidebar { position: static; margin-bottom: 16px; }
+      .path { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .path a { font-size: 12px; padding: 9px; }
+      section.card { padding: 20px; border-radius: 22px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .mode-switch { margin-top: 14px; }
+      .article-text { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="NewsLens home">
+        <span class="logo">NL</span>
+        <span>NewsLens 精读课</span>
+      </a>
+      <nav class="nav">
+        <a href="#before">导读</a>
+        <a href="#article">原文精读</a>
+        <a href="#expressions">表达实验室</a>
+        <a href="#practice">练习</a>
+        <a href="#ielts">雅思延展</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div class="hero-card">
+        <span class="kicker">🌐 BBC-style News English · B2-C1 · 25 min</span>
+        <h1>India orders Meta to remove ads promoting child sexual abuse</h1>
+        <p class="hero-subtitle">通过一篇真实新闻，学习“政府监管、平台责任、公司回应”类英文表达。Read the news. Learn the language. Build your opinion.</p>
+        <div class="tags">
+          <span class="tag">News English</span>
+          <span class="tag">Platform Safety</span>
+          <span class="tag">Government Regulation</span>
+          <span class="tag">Social Media</span>
+          <span class="tag">IELTS Topic Bank</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#before">开始学习</a>
+          <a class="btn btn-ghost" href="#article">直接读原文</a>
+          <a class="btn btn-ghost" href="#practice">进入练习</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="panel side-panel">
+          <div class="side-title">Learning Path</div>
+          <nav class="path">
+            <a class="active" href="#before"><span class="dot">1</span>导读</a>
+            <a href="#article"><span class="dot">2</span>精读</a>
+            <a href="#logic"><span class="dot">3</span>结构</a>
+            <a href="#expressions"><span class="dot">4</span>表达</a>
+            <a href="#practice"><span class="dot">5</span>练习</a>
+            <a href="#ielts"><span class="dot">6</span>输出</a>
+          </nav>
+        </div>
+      </aside>
+
+      <div class="content">
+        <section class="card" id="before">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Before You Read</div>
+              <h2>先建立背景，再进入英文</h2>
+            </div>
+          </div>
+          <p class="muted">这篇新闻围绕三方展开：BBC 调查、印度政府监管行动、Meta 平台回应。阅读时重点看“谁做了什么、为什么做、如何回应”。</p>
+          <div class="safety">安全提示：本文涉及儿童网络安全与平台治理议题。页面仅用于英语学习和新闻理解，不展示或引导任何非法内容。</div>
+          <h3>带着 3 个问题阅读</h3>
+          <div class="grid-3">
+            <div class="mini-card"><h4>Q1. Government action</h4><p>What did the Indian government order Meta to do?</p></div>
+            <div class="mini-card"><h4>Q2. Investigation</h4><p>What did the BBC investigation find?</p></div>
+            <div class="mini-card"><h4>Q3. Company response</h4><p>How did Meta respond?</p></div>
+          </div>
+          <h3>关键词预热</h3>
+          <div class="grid-3">
+            <div class="mini-card"><h4>facilitate</h4><p>make something easier or possible</p></div>
+            <div class="mini-card"><h4>sought</h4><p>requested / demanded</p></div>
+            <div class="mini-card"><h4>proactively</h4><p>before problems happen</p></div>
+            <div class="mini-card"><h4>zero-tolerance</h4><p>strict refusal to accept something</p></div>
+            <div class="mini-card"><h4>evade detection</h4><p>avoid being found</p></div>
+            <div class="mini-card"><h4>in response to</h4><p>as a reaction to something</p></div>
+          </div>
+        </section>
+
+        <section class="card" id="article">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Reading Room</div>
+              <h2>原文精读</h2>
+              <p class="muted">切换阅读模式：先纯英文快读，再打开中文概括和句子解析。</p>
+            </div>
+            <div class="mode-switch" role="group" aria-label="Reading mode">
+              <button class="mode-btn active" data-mode="english">纯英文</button>
+              <button class="mode-btn" data-mode="bilingual">中英辅助</button>
+              <button class="mode-btn" data-mode="deep">精读讲解</button>
+            </div>
+          </div>
+          <div class="legend">
+            <span class="highlight-fact">蓝色：事实信息</span>
+            <span class="highlight-action">橙色：政府/行动</span>
+            <span class="highlight-response">紫色：平台回应</span>
+          </div>
+
+          <div class="article-stack" id="articleStack">
+            <article class="paragraph-card" data-step="1">
+              <div class="p-meta"><span>Paragraph 1 · Lead</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">The <span class="highlight-fact">Indian government</span> has <span class="highlight-action">directed Meta</span> to immediately disable advertisements and content on Instagram that promote or <span class="highlight-action">facilitate</span> child sexual abuse material, a senior official said.</p>
+              <p class="cn-summary">印度政府要求 Meta 立即下架 Instagram 上推广或便利传播非法内容的广告和内容。</p>
+              <div class="explain"><strong>句子拆解：</strong>has directed Meta to... = 已经指示 Meta 去做某事。facilitate 在这里表示“让获取或传播变得更容易”，不是正面的“促进”。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="2">
+              <div class="p-meta"><span>Paragraph 2 · Cause</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">It comes after a <span class="highlight-fact">BBC Eye investigation</span> found that Instagram has been running paid adverts promoting child sexual abuse material in India, some of which linked users to Telegram channels where the material was offered for sale.</p>
+              <p class="cn-summary">这一行动发生在 BBC 调查发现 Instagram 出现相关付费广告之后。</p>
+              <div class="explain"><strong>句型：</strong>It comes after... 是新闻英语高频表达，意思是“这发生在……之后”。比 This happened after... 更正式。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="3">
+              <div class="p-meta"><span>Paragraph 3 · Requirement</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">The government has also <span class="highlight-action">sought an explanation</span> within a week on how advertisements containing such material were <span class="highlight-action">allowed on the platform</span>, the official said.</p>
+              <p class="cn-summary">政府还要求 Meta 在一周内解释这类广告为何能出现在平台上。</p>
+              <div class="explain"><strong>结构：</strong>seek an explanation within + 时间 + on how... = 要求在……时间内解释……是如何发生的。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="4">
+              <div class="p-meta"><span>Paragraph 4 · Meta response</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text"><span class="highlight-response">Meta has said</span> it has a <span class="highlight-response">zero-tolerance policy</span> on child sexual abuse material and is continuing to strengthen its detection and defences.</p>
+              <p class="cn-summary">Meta 回应称其有零容忍政策，并继续加强检测与防御。</p>
+              <div class="explain"><strong>表达：</strong>zero-tolerance policy = 零容忍政策。常用于学校霸凌、职场骚扰、违法内容、腐败等严肃语境。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="5">
+              <div class="p-meta"><span>Paragraph 5 · Telegram data</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text"><span class="highlight-fact">Telegram</span> said it had removed more than 274,000 groups and channels related to child sexual abuse material in 2026.</p>
+              <p class="cn-summary">Telegram 称其在 2026 年删除了超过 274,000 个相关群组和频道。</p>
+              <div class="explain"><strong>阅读提醒：</strong>新闻常通过第三方平台数据补充事件规模。这里的数字让问题显得更系统化，而不只是单个平台事故。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="6">
+              <div class="p-meta"><span>Paragraph 6 · Official quote</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">"The government has <span class="highlight-action">issued a stern notice</span> to Meta over child sexual exploitative and abuse material appearing in paid advertisements on Instagram," a senior official in India's Ministry of Electronics and Information Technology told the BBC.</p>
+              <p class="cn-summary">印度电子和信息技术部高级官员称，政府已向 Meta 发出严厉通知。</p>
+              <div class="explain"><strong>新闻动词：</strong>issue a notice = 发出通知；stern = 严厉的。这个搭配适合政府监管类新闻。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="7">
+              <div class="p-meta"><span>Paragraph 7 · Order details</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">The official further said the federal ministry had <span class="highlight-action">ordered Instagram to disable</span> all ads and content promoting or facilitating access to such material.</p>
+              <p class="cn-summary">该官员进一步表示，联邦部门已命令 Instagram 禁用所有相关广告和内容。</p>
+              <div class="explain"><strong>表达升级：</strong>order somebody to do something 比 ask 更正式、更强硬，常见于政府、法院、监管机构。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="8">
+              <div class="p-meta"><span>Paragraph 8 · Deadline</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">"The government has <span class="highlight-action">sought a detailed explanation</span> from Meta within seven days," the official added.</p>
+              <p class="cn-summary">政府要求 Meta 在七天内给出详细解释。</p>
+              <div class="explain"><strong>可迁移句：</strong>The regulator sought a detailed explanation from the company within 30 days.</div>
+            </article>
+
+            <article class="paragraph-card" data-step="9">
+              <div class="p-meta"><span>Paragraph 9 · Spokesperson quote</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">On being asked about the government's notice, a <span class="highlight-response">Meta spokesperson</span> said the company has "a zero-tolerance policy for soliciting or sharing" child sexual abuse material, including in ads.</p>
+              <p class="cn-summary">Meta 发言人表示，公司对招揽或分享相关非法内容采取零容忍政策，包括广告。</p>
+              <div class="explain"><strong>新闻结构：</strong>On being asked about... = 当被问及……时。这是引出公司回应的常见方式。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="10">
+              <div class="p-meta"><span>Paragraph 10 · Detection challenge</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">"We use advanced AI technology to <span class="highlight-response">proactively detect</span> violating content and individuals, but we are <span class="highlight-response">in a constant battle with criminals</span> who hide among our 3.5 billion users and try to <span class="highlight-response">evade our detection</span>," the spokesperson said.</p>
+              <p class="cn-summary">Meta 称其使用 AI 主动检测违规内容，但也一直在与试图绕过检测的犯罪分子对抗。</p>
+              <div class="explain"><strong>重点句型：</strong>be in a constant battle with... = 一直在与……斗争。evade detection = 逃避检测。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="11">
+              <div class="p-meta"><span>Paragraph 11 · Timing</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">The government notice has been issued days after the BBC Eye Investigation was published. However, neither the government nor Meta confirmed whether the notice was issued specifically <span class="highlight-fact">in response to</span> the BBC's film.</p>
+              <p class="cn-summary">政府通知是在 BBC 调查发布数日后发出的，但双方没有确认通知是否专门回应 BBC 调查片。</p>
+              <div class="explain"><strong>短语：</strong>in response to = 作为对……的回应。注意新闻中常区分时间上的“之后”和因果上的“回应”。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="12">
+              <div class="p-meta"><span>Paragraph 12 · Investigation details</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">The BBC set up a new alias Instagram account in India after noticing the platform was pushing sexually suggestive content even when users had not searched for it. The account followed 10 such profiles and, in less than a week, Instagram began showing the alias account paid adverts featuring adult pornography.</p>
+              <p class="cn-summary">BBC 创建了一个印度地区的 Instagram 别名账号，发现平台会主动推送暗示性内容和成人广告。</p>
+              <div class="explain"><strong>阅读提醒：</strong>这部分解释 BBC 调查方法：新账号、关注特定账号、观察算法推荐变化。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="13">
+              <div class="p-meta"><span>Paragraph 13 · Further findings</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">Days later, it was also shown adverts promoting child sexual abuse material, some of which linked users to Telegram channels.</p>
+              <p class="cn-summary">几天后，该账号也看到了推广相关非法内容的广告，其中一些导向 Telegram 频道。</p>
+              <div class="explain"><strong>结构：</strong>some of which... 是非限制性定语从句，补充说明前面的 adverts。</div>
+            </article>
+
+            <article class="paragraph-card" data-step="14">
+              <div class="p-meta"><span>Paragraph 14 · Meta denial</span><button class="btn btn-small btn-soft add-progress">标记已读</button></div>
+              <p class="article-text">In its response to the BBC Investigation, <span class="highlight-response">Meta</span> had said that "child exploitation is a horrific crime" and that it works aggressively to fight it on its apps. The company, however, called it "categorically inaccurate" to suggest it knowingly and deliberately targeted ads featuring children to users with an inappropriate interest in such material and denied prioritising revenue over safety.</p>
+              <p class="cn-summary">Meta 表示儿童剥削是可怕犯罪，并否认故意向相关兴趣用户投放此类广告或将收入置于安全之上。</p>
+              <div class="explain"><strong>新闻冲突点：</strong>平台承认问题严重，但否认“有意投放”与“收入优先”。这是公司危机回应中常见的辩护结构。</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="card" id="logic">
+          <div class="eyebrow">News Logic Map</div>
+          <h2>一张图看懂全文结构</h2>
+          <p class="muted">这篇新闻的逻辑不是线性的“讲故事”，而是典型新闻结构：调查发现问题 → 政府行动 → 公司回应 → 补充细节 → 双方表态。</p>
+          <div class="logic-map">
+            <div class="logic-node"><span class="logic-num">1</span><div><strong>BBC Investigation</strong><br><span class="muted">BBC 调查发现 Instagram 出现相关付费广告。</span></div></div>
+            <div class="arrow">↓</div>
+            <div class="logic-node"><span class="logic-num">2</span><div><strong>Government Notice</strong><br><span class="muted">印度政府要求 Meta 立即下架广告和内容。</span></div></div>
+            <div class="arrow">↓</div>
+            <div class="logic-node"><span class="logic-num">3</span><div><strong>Explanation Required</strong><br><span class="muted">政府要求 Meta 在七天内解释审核失误。</span></div></div>
+            <div class="arrow">↓</div>
+            <div class="logic-node"><span class="logic-num">4</span><div><strong>Meta Response</strong><br><span class="muted">Meta 强调零容忍政策、AI 主动检测、犯罪分子逃避识别。</span></div></div>
+            <div class="arrow">↓</div>
+            <div class="logic-node"><span class="logic-num">5</span><div><strong>Broader Question</strong><br><span class="muted">平台是否应该为广告审核和算法推荐承担更大责任？</span></div></div>
+          </div>
+        </section>
+
+        <section class="card" id="expressions">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Expression Lab</div>
+              <h2>重点表达实验室</h2>
+            </div>
+          </div>
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="words">重点词汇</button>
+            <button class="tab-btn" data-tab="phrases">重点短语</button>
+            <button class="tab-btn" data-tab="sentences">重点句型</button>
+          </div>
+
+          <div class="tab-panel active" id="tab-words">
+            <div class="expression-card">
+              <h3>facilitate <span class="phonetic">/fəˈsɪlɪteɪt/</span></h3>
+              <p><strong>中文：</strong>促进；使……更容易；为……提供便利。</p>
+              <div class="quote">原文：promote or facilitate child sexual abuse material</div>
+              <p>这里的 facilitate 指“让获取或传播非法内容变得更容易”。这个词本身中性，可以用于好事，也可以用于坏事。</p>
+              <p><strong>常见搭配：</strong>facilitate communication / facilitate access to something / facilitate the spread of something</p>
+              <button class="btn btn-small btn-soft save-word" data-word="facilitate">加入词库</button>
+            </div>
+            <div class="expression-card">
+              <h3>sought <span class="phonetic">/sɔːt/</span></h3>
+              <p><strong>中文：</strong>寻求；要求；试图获得。原形是 seek。</p>
+              <div class="quote">原文：The government has also sought an explanation...</div>
+              <p>这里不是普通“寻找”，而是正式语境里的“要求对方给出解释”。</p>
+              <p><strong>常见搭配：</strong>seek an explanation / seek approval / seek legal advice / seek compensation</p>
+              <button class="btn btn-small btn-soft save-word" data-word="sought">加入词库</button>
+            </div>
+            <div class="expression-card">
+              <h3>proactively <span class="phonetic">/ˌprəʊˈæktɪvli/</span></h3>
+              <p><strong>中文：</strong>主动地；预先采取行动地。</p>
+              <div class="quote">原文：proactively detect violating content</div>
+              <p>不是等用户举报后再处理，而是平台主动用技术识别违规内容。</p>
+              <div class="codebox">reactively = 出事后再反应<br>proactively = 出事前主动预防</div>
+              <button class="btn btn-small btn-soft save-word" data-word="proactively">加入词库</button>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-phrases">
+            <div class="expression-card">
+              <h3>zero-tolerance policy</h3>
+              <p><strong>中文：</strong>零容忍政策。</p>
+              <p>常用于 bullying, workplace harassment, illegal content, corruption 等严肃语境。</p>
+              <div class="quote">Many schools have a zero-tolerance policy on bullying.</div>
+              <button class="btn btn-small btn-soft save-word" data-word="zero-tolerance policy">加入词库</button>
+            </div>
+            <div class="expression-card">
+              <h3>be allowed on the platform</h3>
+              <p><strong>中文：</strong>被允许出现在平台上。</p>
+              <p>适合科技监管、广告审核、内容治理话题。</p>
+              <div class="quote">Misleading advertisements should not be allowed on major platforms.</div>
+              <button class="btn btn-small btn-soft save-word" data-word="be allowed on the platform">加入词库</button>
+            </div>
+            <div class="expression-card">
+              <h3>in response to</h3>
+              <p><strong>中文：</strong>作为对……的回应；针对……。</p>
+              <div class="quote">The government introduced new rules in response to public concern.</div>
+              <button class="btn btn-small btn-soft save-word" data-word="in response to">加入词库</button>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-sentences">
+            <div class="expression-card">
+              <h3>1. It comes after...</h3>
+              <p>新闻英语常见表达，意思是“这发生在……之后”。</p>
+              <div class="codebox">It comes after + 事件<br>= 这发生在……之后</div>
+              <p><strong>迁移例句：</strong>The new policy comes after several reports raised concerns about online safety.</p>
+            </div>
+            <div class="expression-card">
+              <h3>2. seek an explanation on how...</h3>
+              <p>适合政府监管、公司危机、数据泄露、平台事故类写作。</p>
+              <div class="codebox">seek an explanation within + 时间 + on how...<br>= 要求在……时间内解释……是如何发生的</div>
+              <p><strong>迁移例句：</strong>The regulator sought an explanation within 30 days on how user data was mishandled.</p>
+            </div>
+            <div class="expression-card">
+              <h3>3. be in a constant battle with...</h3>
+              <p>意思是“一直在与……斗争”。</p>
+              <div class="codebox">be in a constant battle with + 对象<br>evade detection = 逃避检测</div>
+              <p><strong>迁移例句：</strong>Online platforms are in a constant battle with scammers who try to evade detection.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="practice">
+          <div class="eyebrow">Practice Zone</div>
+          <h2>把输入变成输出</h2>
+          <p class="muted">完成下面练习后，这篇文章才真正变成你的表达素材。</p>
+
+          <div class="practice-item" data-practice="quiz1">
+            <h3>1. 词汇填空</h3>
+            <p>The government ______ an explanation from the company.</p>
+            <div class="options">
+              <button class="option" data-correct="false">A. facilitated</button>
+              <button class="option" data-correct="true">B. sought</button>
+              <button class="option" data-correct="false">C. evaded</button>
+            </div>
+          </div>
+
+          <div class="practice-item">
+            <h3>2. 短语替换</h3>
+            <p>把下面句子改得更正式：</p>
+            <div class="quote">The company said it does not accept illegal content at all.</div>
+            <button class="btn btn-small btn-blue show-answer">显示参考答案</button>
+            <div class="answer">The company said it has a zero-tolerance policy for illegal content.</div>
+          </div>
+
+          <div class="practice-item">
+            <h3>3. 句型仿写</h3>
+            <p>使用 <strong>It comes after...</strong> 翻译：这项新规定是在公众对网络安全表示担忧之后出台的。</p>
+            <button class="btn btn-small btn-blue show-answer">显示参考答案</button>
+            <div class="answer">The new rule comes after public concerns were raised about online safety.</div>
+          </div>
+
+          <div class="practice-item">
+            <h3>4. 60–80 词英文总结</h3>
+            <p class="muted">提示词：ordered / remove / investigation / explanation / zero-tolerance / detection</p>
+            <textarea id="summaryText" placeholder="Write your summary here..."></textarea>
+            <p class="muted"><span id="wordCount">0</span> words</p>
+            <button class="btn btn-small btn-blue show-answer">显示参考答案</button>
+            <div class="answer">The Indian government has ordered Meta to remove advertisements and content on Instagram that promote or facilitate access to child sexual abuse material. The move came after a BBC Eye investigation found that some paid adverts on Instagram linked users to Telegram channels. The government has also sought an explanation from Meta within a week. Meta said it has a zero-tolerance policy and uses AI to proactively detect harmful content.</div>
+          </div>
+        </section>
+
+        <section class="card" id="ielts">
+          <div class="eyebrow">IELTS Connection</div>
+          <h2>从新闻到雅思素材</h2>
+          <div class="grid-2">
+            <div class="mini-card">
+              <h4>Speaking Part 3</h4>
+              <p><strong>Question:</strong> Do you think social media platforms should be responsible for harmful content posted by users?</p>
+              <p><strong>Useful answer:</strong> Yes, at least partly. Platforms design the systems that recommend, approve and distribute content. If harmful content is allowed to spread through paid advertisements, companies should be held accountable.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Writing Task 2</h4>
+              <p><strong>Topic:</strong> Some people believe technology companies should be legally responsible for harmful content on their platforms. To what extent do you agree or disagree?</p>
+              <p><strong>Useful expressions:</strong> be held accountable / platform safety / evade detection / strengthen moderation systems / proactively address risks</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="complete" id="complete">
+          <h2>Lesson Complete</h2>
+          <p class="muted">你已经把一篇新闻转化成了词汇、句型、观点和考试素材。</p>
+          <div class="checklist">
+            <div>✓ 读懂一篇真实英文新闻</div>
+            <div>✓ 学习 3 个重点词汇</div>
+            <div>✓ 掌握 3 个新闻短语</div>
+            <div>✓ 拆解 3 个高阶句型</div>
+            <div>✓ 完成 1 次英文总结训练</div>
+          </div>
+          <button class="btn btn-blue" id="finishBtn">完成本课</button>
+        </section>
+      </div>
+
+      <aside class="rightbar">
+        <div class="panel right-card">
+          <div class="side-title">Reading Progress</div>
+          <div class="progress-row">
+            <div class="progress-label"><span>文章阅读</span><span id="readPercent">0%</span></div>
+            <div class="bar"><div class="fill" id="readFill"></div></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress-label"><span>表达学习</span><span id="exprPercent">20%</span></div>
+            <div class="bar"><div class="fill" id="exprFill" style="width:20%"></div></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress-label"><span>练习完成</span><span id="practicePercent">0%</span></div>
+            <div class="bar"><div class="fill" id="practiceFill"></div></div>
+          </div>
+        </div>
+
+        <div class="panel right-card">
+          <div class="side-title">My Word Bank</div>
+          <div class="word-list" id="wordList">
+            <div class="word-pill"><span>facilitate</span><span class="status">复习中</span></div>
+            <div class="word-pill"><span>sought</span><span class="status">复习中</span></div>
+            <div class="word-pill"><span>proactively</span><span class="status">复习中</span></div>
+          </div>
+        </div>
+
+        <div class="panel right-card ask-box">
+          <div class="side-title">AI Tutor Prompt</div>
+          <input id="askInput" placeholder="Ask anything about this article..." />
+          <div class="chips">
+            <button class="chip" data-prompt="Explain this sentence">Explain this sentence</button>
+            <button class="chip" data-prompt="Give me more examples">More examples</button>
+            <button class="chip" data-prompt="Test me">Test me</button>
+            <button class="chip" data-prompt="Use it in IELTS">IELTS</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="floating-complete" id="toast">🎉 本课已完成</div>
+
+  <script>
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    const articleStack = document.getElementById('articleStack');
+    const paragraphCards = document.querySelectorAll('.paragraph-card');
+    const summaries = document.querySelectorAll('.cn-summary');
+
+    function setMode(mode) {
+      modeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === mode));
+      paragraphCards.forEach(card => card.classList.toggle('show-explain', mode === 'deep'));
+      summaries.forEach(summary => summary.style.display = (mode === 'english') ? 'none' : 'block');
+    }
+    modeButtons.forEach(btn => btn.addEventListener('click', () => setMode(btn.dataset.mode)));
+    setMode('english');
+
+    const totalParagraphs = paragraphCards.length;
+    const read = new Set();
+    document.querySelectorAll('.add-progress').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.paragraph-card');
+        read.add(card.dataset.step);
+        btn.textContent = '已读 ✓';
+        btn.classList.remove('btn-soft');
+        btn.classList.add('btn-blue');
+        updateReadProgress();
+      });
+    });
+
+    function updateReadProgress() {
+      const percent = Math.round(read.size / totalParagraphs * 100);
+      document.getElementById('readPercent').textContent = percent + '%';
+      document.getElementById('readFill').style.width = percent + '%';
+    }
+
+    const tabs = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.toggle('active', b === btn));
+        tabPanels.forEach(panel => panel.classList.toggle('active', panel.id === 'tab-' + btn.dataset.tab));
+        document.getElementById('exprPercent').textContent = '65%';
+        document.getElementById('exprFill').style.width = '65%';
+      });
+    });
+
+    const wordList = document.getElementById('wordList');
+    const saved = new Set(['facilitate', 'sought', 'proactively']);
+    document.querySelectorAll('.save-word').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const word = btn.dataset.word;
+        if (!saved.has(word)) {
+          saved.add(word);
+          const item = document.createElement('div');
+          item.className = 'word-pill';
+          item.innerHTML = `<span>${word}</span><span class="status">新加入</span>`;
+          wordList.appendChild(item);
+        }
+        btn.textContent = '已加入 ✓';
+      });
+    });
+
+    let practiceDone = 0;
+    const practiceTotal = 4;
+    function updatePracticeProgress() {
+      const percent = Math.min(100, Math.round(practiceDone / practiceTotal * 100));
+      document.getElementById('practicePercent').textContent = percent + '%';
+      document.getElementById('practiceFill').style.width = percent + '%';
+    }
+    document.querySelectorAll('.option').forEach(option => {
+      option.addEventListener('click', () => {
+        const siblings = option.parentElement.querySelectorAll('.option');
+        siblings.forEach(s => s.disabled = true);
+        if (option.dataset.correct === 'true') option.classList.add('correct');
+        else option.classList.add('wrong');
+        const correct = option.parentElement.querySelector('[data-correct="true"]');
+        correct.classList.add('correct');
+        practiceDone += 1;
+        updatePracticeProgress();
+      });
+    });
+    document.querySelectorAll('.show-answer').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.parentElement.querySelector('.answer');
+        answer.classList.toggle('show');
+        if (!btn.dataset.done) {
+          btn.dataset.done = 'true';
+          practiceDone += 1;
+          updatePracticeProgress();
+        }
+      });
+    });
+
+    const summaryText = document.getElementById('summaryText');
+    const wordCount = document.getElementById('wordCount');
+    summaryText.addEventListener('input', () => {
+      const words = summaryText.value.trim().split(/\s+/).filter(Boolean).length;
+      wordCount.textContent = words;
+    });
+
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.getElementById('askInput').value = chip.dataset.prompt;
+      });
+    });
+
+    document.getElementById('finishBtn').addEventListener('click', () => {
+      const toast = document.getElementById('toast');
+      toast.style.display = 'flex';
+      setTimeout(() => toast.style.display = 'none', 2200);
+    });
+
+    const sections = [...document.querySelectorAll('section[id]')];
+    const navLinks = [...document.querySelectorAll('.path a')];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
